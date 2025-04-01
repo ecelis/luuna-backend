@@ -1,0 +1,27 @@
+# spell-checker: disable
+services:
+    db:
+        restart: always
+        shm_size: 128mb
+        image: postgres:16-alpine
+        env_file:
+            - ./src/api/.env
+        ports:
+            - 5432:5432
+    api:
+        build:
+            context: .
+            network: host
+        image: luuna/catalog
+        command: python manage.py runserver 0.0.0.0:8000
+        env_file:
+            - ./src/api/.env
+        volumes:
+            - ./src/api:/app:Z
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+        links:
+            - db
+        restart: always
