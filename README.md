@@ -11,6 +11,8 @@
 docker compose up
 ```
 
+Browse the API http://localhost:8000
+
 ## Optional Manual Setup Steps
 
 If you can't use docker, you can instead follow the next steps to setup the
@@ -20,7 +22,7 @@ app locally.
 Create a python virtual environment and activate it
 
 ```sh
-python -mvenv ENV
+python3 -mvenv ENV
 source ENV/bin/activate
 ```
 
@@ -49,6 +51,18 @@ CSFR_TRUSTED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 ```
 
+Run migrations to bootstrap the database
+
+```sh
+cd srx/api
+python3 manage.py migrate 
+```
+
+Run the app
+
+```sh
+python3 manage.py runserver
+```
 
 
 
