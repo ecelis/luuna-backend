@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "1bab9bb5-6be0-4385-af70-0f198da6fd8d",
+		"name": "Luuna",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2280016",
+		"_collection_link": "https://patito-ninja.postman.co/workspace/Rapport~5a1c6708-ff0f-4911-a507-1adfd431cf44/collection/2280016-1bab9bb5-6be0-4385-af70-0f198da6fd8d?action=share&source=collection_link&creator=2280016"
+	},
+	"item": [
+		{
+			"name": "csrf",
+			"item": [
+				{
+					"name": "csrf",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response includes a csrfToken field\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.csrfToken).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"CsrfToken should be a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.csrfToken).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CsrfToken should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Ensure that there are no query parameters in the request URL\", function () {",
+									"    pm.expect(pm.request.url.query).to.be.empty;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}csrf/",
+							"host": [
+								"{{base_url}}csrf"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "token",
+			"item": [
+				{
+					"name": "new token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"accessToken\",pm.response.json().access);",
+									"pm.collectionVariables.set(\"refreshToken\", pm.response.json().refresh);",
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.have.property('refresh');",
+									"    pm.expect(responseData).to.have.property('access');",
+									"    pm.expect(responseData).to.have.property('user_id');",
+									"    pm.expect(responseData).to.have.property('username');",
+									"    pm.expect(responseData).to.have.property('is_staff');",
+									"});",
+									"",
+									"",
+									"pm.test(\"User_id is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.user_id).to.be.a('number');",
+									"    pm.expect(responseData.user_id).to.be.at.least(0);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Is_staff field is a boolean value\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.is_staff).to.be.a('boolean');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRFToken",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}token/",
+							"host": [
+								"{{base_url}}token"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"// Pre-request Script",
+					"const base_url = pm.collectionVariables.get(\"base_url\");",
+					"pm.sendRequest({",
+					"    url: `${base_url}csrf/`, // Replace with your endpoint to get CSRF token",
+					"    method: 'GET'",
+					"}, function (err, res) {",
+					"    if (err) {",
+					"        console.error(err);",
+					"    } else {",
+					"        // Assuming the CSRF token is in the response body",
+					"        var csrfToken = res.json().csrfToken;",
+					"        pm.environment.set('csrfToken', csrfToken);",
+					"    }",
+					"});",
+					"",
+					"// Configuration - Update these values",
+					"// const tokenEndpoint = `${base_url}token/`;",
+					"// console.log(\"Get Access Token\")",
+					"// console.log(\"Current Authorization\", 'Bearer ' + pm.collectionVariables.get('accessToken'))",
+					"// const validationResponse = await pm.sendRequest({",
+					"//     url: `${base_url}account/`,",
+					"//     method: 'GET',",
+					"//     header: {",
+					"//         'Authorization': 'Bearer ' + pm.collectionVariables.get('accessToken')",
+					"//     }",
+					"// });",
+					"// console.log(\"Test current token\", validationResponse.code)",
+					"// if (validationResponse.code === 401 || validationResponse.code === 403) {",
+					"//     console.log(\"Token invalid or expired, request new one\")",
+					"//     const body = {",
+					"//             \"username\": pm.collectionVariables.get(\"username\"),",
+					"//             \"password\": pm.collectionVariables.get(\"password\")",
+					"//         }",
+					"//     console.log(body)",
+					"//     const tokenResponse = await pm.sendRequest({",
+					"//         url: tokenEndpoint,",
+					"//         method: 'POST',",
+					"//         header: {",
+					"//             'Content-Type': 'application/json'",
+					"//         },",
+					"//         body: body",
+					"//     });",
+					"//     console.log(tokenResponse)",
+					"//     if (tokenResponse.code === 200) {",
+					"//         const {access, refresh} = tokenResponse.json();",
+					"//         console.log(access, refresh)",
+					"//         pm.collectionVariables.set('accessToken', access);",
+					"//         pm.collectionVariables.set('refreshToken', refresh);",
+					"//         console.log('New access token obtained and saved');",
+					"//     } else {",
+					"//         console.error('Failed to obtain new access token');",
+					"//     }",
+					"// }"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/",
+			"type": "string"
+		},
+		{
+			"key": "csrfToken",
+			"value": "BMNGH6fZMEmb6YDNVs64by1ZbkP9C6pO",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "1qaz0plm",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
