@@ -16,9 +16,18 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import include, path
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
+
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return JsonResponse({"csrfToken": request.META.get("CSRF_COOKIE")})
+
 
 urlpatterns = [
+    path("", include("siteadmin.urls")),
+    path("csrf/", csrf_exempt(get_csrf_token)),
     path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
 ]
