@@ -28,6 +28,7 @@ def get_csrf_token(request):
 
 urlpatterns = [
     path("", include("siteadmin.urls")),
+    path("", include("products.urls")),
     path("csrf/", csrf_exempt(get_csrf_token)),
     path("admin/", admin.site.urls),
 ]

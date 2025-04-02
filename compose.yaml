@@ -25,3 +25,12 @@ services:
         links:
             - db
         restart: always
+    oas:
+        image: swaggerapi/swagger-ui
+        ports:
+            - "8080:8080"
+        environment:
+            - SWAGGER_JSON=/schema.yml
+        volumes:
+            - ./src/api/schema.yml:/schema.yml:Z 
+        
