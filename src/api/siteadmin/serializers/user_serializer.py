@@ -18,6 +18,5 @@ class UserSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password", None)
         if password:
             instance.set_password(password)
-        # instance.save()
 
         return super().update(instance, validated_data)
