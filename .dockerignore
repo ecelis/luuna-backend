@@ -177,3 +177,4 @@ bak
 .env.*
 bak
 .~*
+.vscode
