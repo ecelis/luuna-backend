@@ -4,6 +4,190 @@ info:
   version: 0.0.1
   description: A simple API for Luuna
 paths:
+  /brand/:
+    get:
+      operationId: brand_list
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - brand
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBrandList'
+          description: ''
+    post:
+      operationId: brand_create
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      tags:
+      - brand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Brand'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Brand'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+  /brand/{id}/:
+    get:
+      operationId: brand_retrieve
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - brand
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    put:
+      operationId: brand_update
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - brand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Brand'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Brand'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    patch:
+      operationId: brand_partial_update
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - brand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBrand'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBrand'
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    delete:
+      operationId: brand_destroy
+      description: |-
+        API endpoints to manage product brands.
+
+        Provides CRUD operations and is restricted for writes to admin users,
+        anonymous users can list the products
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - brand
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
   /token/:
     post:
       operationId: token_create
@@ -282,6 +466,25 @@ paths:
           description: No response body
 components:
   schemas:
+    Brand:
+      type: object
+      description: Brand serializer
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - name
+      - updated_at
     CustomTokenObtainPair:
       type: object
       description: Custom JSON Web Token serializer
@@ -295,6 +498,29 @@ components:
       required:
       - password
       - username
+    PaginatedBrandList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
     PaginatedUserList:
       type: object
       required:
@@ -318,6 +544,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    PatchedBrand:
+      type: object
+      description: Brand serializer
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
     PatchedUser:
       type: object
       description: User serializer
