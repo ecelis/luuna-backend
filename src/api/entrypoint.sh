@@ -8,4 +8,3 @@ python3 manage.py migrate --noinput
 # django-admin compilemessages
 
 exec "$@"
-

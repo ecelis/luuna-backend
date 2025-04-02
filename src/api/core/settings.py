@@ -141,6 +141,14 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Luuna API",
+    "DESCRIPTION": "A simple API for Luuna",
+    "VERSION": "0.0.1",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
@@ -165,12 +173,6 @@ CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
 ).split(",")
 
-SPECTACULAR_SETTINGS = {
-    "TITLE": "Raport API",
-    "DESCRIPTION": "Rapport Work Management System",
-    "VERSION": "0.1.2",
-    "SERVE_INCLUDE_SCHEMA": False,
-}
 
 LOGGING = {
     "version": 1,

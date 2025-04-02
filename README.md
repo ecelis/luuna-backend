@@ -11,6 +11,14 @@
 docker compose up
 ```
 
+In a new terminal window create the first user, run the following command, it will ask for a password.
+
+```sh
+docker compose exec -i sh -c 'python3 manage.py createsuperuser --username admin --email admin@example.com'
+```
+
+
+
 Browse the API http://localhost:8000
 
 ## Optional Manual Setup Steps
@@ -54,7 +62,7 @@ CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 Run migrations to bootstrap the database
 
 ```sh
-cd srx/api
+cd src/api
 python3 manage.py migrate 
 ```
 
@@ -62,6 +70,21 @@ Run the app
 
 ```sh
 python3 manage.py runserver
+```
+
+Create the superuser
+
+```sh
+python3 manage.py createsuperuser --username admin --email admin@example.com
+```
+
+### OpenAPI Swagger
+
+Update the schema every time the API changes
+
+```sh
+cd src/api
+python3 manage.py spectacular --color --file schema.yml
 ```
 
 
