@@ -10,7 +10,7 @@ class BrandViewSet(viewsets.ModelViewSet):
     Provides CRUD operations and is restricted for writes to admin users,
     anonymous users can list the products"""
 
-    queryset = Brand.objects.all()
+    queryset = Brand.objects.all().order_by("name")
     serializer_class = BrandSerializer
     permission_classes = [
         permissions.IsAdminUser,
