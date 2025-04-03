@@ -1,9 +1,17 @@
 
-<img src="https://zebrands.mx/wp-content/uploads/2021/07/WEB-ZEB-05-1-1024x291.png" width="300">
-
 # Backend Technical Test
 
+There is a demo online at https://seal-app-6d5qj.ondigitalocean.app/docs
 
+A Postman collection is included in this repo in the `postman` directory. It should work simply by importing it in Postman wit the default 
+variable values.
+
+1. Send a request with csrf/GET csrf to get a token
+2. Send a reuqest with token/POST new token to get an authorization token for the existin `admin` user.
+3. Try other requests included now that you are authenticated.
+
+There are some request that are labeled anonymous, these only are able to get products, there is one to create a product by anonymous,
+try it, it should bedy the create request.
 
 ## Development Setup
 
@@ -112,8 +120,132 @@ It requires nodejs installed!!
 npx @redocly/cli build-docs src/api/schema.yml --output docs/index.html
 ```
 
+# Luuna Backend API Architecture Design
 
+## 1. Introduction
 
+This document outlines the architecture design for the Luuna Backend API, built using Python with Django and Django REST Framework. The API leverages a PostgreSQL database and employs JWT for authentication. It includes a modular design for product catalog, user management, and notification systems, ensuring loose coupling and scalability.
+
+## 2. Goals
+
+* **Scalability:** Design an architecture capable of handling increasing user loads and data volumes.
+* **Maintainability:** Implement a modular structure to facilitate future development and maintenance.
+* **Security:** Ensure secure authentication and authorization using JWT.
+* **Flexibility:** Utilize design patterns (e.g., Factory Pattern) to enable easy extension and modification.
+* **Reliability:** Implement robust deployment processes to minimize downtime.
+
+## 3. Technology Stack
+
+* **Programming Language:** Python 3.x
+* **Web Framework:** Django 5.x
+* **API Framework:** Django REST Framework (DRF)
+* **Database:** PostgreSQL
+* **Authentication:** JSON Web Tokens (JWT)
+* **Containerization:** Docker
+* **Version Control:** Git (GitHub)
+* **Deployment:** Dockerized environment on DigitalOcean (cloud-provider agnostic)
+* **Notifications:** SMTP, SendGrid API
+
+## 4. Architecture Diagram
+
+```mermaid
+graph LR
+    A[Client Applications (Web, Mobile)] --> B(Luuna Backend API - Django/DRF);
+    B --> C[PostgreSQL Database];
+    B --> D[JWT Authentication];
+    B --> E[Product Catalog Module];
+    B --> F[User Management Module];
+    B --> G[Notification System Module];
+    G --> H{Notification Provider Factory};
+    H --> I[SMTP Provider];
+    H --> J[SendGrid Provider];
+    K[GitHub (Main Branch)] --> L[CI/CD Pipeline (GitHub Actions)];
+    L --> M{Build Success?};
+    M -- Yes --> N[Docker Container Build & Push];
+    N --> O[DigitalOcean Deployment];
+    M -- No --> P[Build Failure (No Deployment)];
+```
+
+## 5. Architectural Components
+### 5.1. API Layer (Django/DRF)
+
+- Responsible for handling HTTP requests and responses.
+- Utilizes Django REST Framework for API development.
+- Implements RESTful API endpoints for products, users, and notifications.
+- Manages request validation, serialization, and deserialization.
+
+### 5.2. Database Layer (PostgreSQL)
+
+- Stores application data persistently.
+- Utilizes Django ORM for database interactions.
+- Ensures data integrity and consistency.
+- Managed PostgreSQL database for optimal performance and reliability.
+
+### 5.3. Authentication (JWT)
+
+- Provides secure authentication and authorization.
+- Generates and verifies JWT tokens.
+- Supports stateless authentication.
+- Allows a wide variety of applications to consume the API.
+
+### 5.4. Product Catalog Module
+
+- Manages product data (e.g., product details, categories, inventory).
+- Provides API endpoints for product retrieval and management.
+- Implements data models and business logic related to products.
+
+### 5.5. User Management Module
+
+- Handles user registration, authentication, and authorization.
+- Manages user profiles and permissions.
+- Provides API endpoints for user management.
+
+### 5.6. Notification System Module
+
+- Sends notifications via various providers (SMTP, SendGrid).
+
+- Utilizes Django signals to trigger notifications.
+
+- Implements the Factory Pattern for provider flexibility.
+
+- Allows to easily add or change notification providers.
+- Notification Provider Factory:
+    - Abstracts the creation of notification providers.
+    - Allows dynamic selection of providers based on configuration.
+    - Facilitates adding new providers without modifying existing code.
+SMTP Provider:
+    - Sends notifications via SMTP.
+SendGrid Provider:
+    - Sends notifications via the SendGrid API.
+
+### 5.7. Containerization (Docker)
+
+- Packages the application and its dependencies into Docker containers.
+- Ensures consistent deployment across different environments.
+- Facilitates scaling and management of the application.
+
+### 5.8. CI/CD Pipeline (GitHub Actions)
+
+- Automates the build, test, and deployment process.
+- Triggers deployments upon successful merges to the main branch.
+- Ensures zero downtime deployments.
+Avoids deployments on build failures.
+
+## 6. Deployment
+
+- Deployed in a Dockerized environment on DigitalOcean.
+- Utilizes a managed PostgreSQL database.
+- Employs a CI/CD pipeline for automated deployments.
+- Cloud-provider agnostic to allow easy migration to AWS, Azure, or GCP.
+
+## 7. Future Enhancements
+
+- Implement caching to improve performance.
+- Add support for asynchronous tasks using Celery.
+- Integrate with a message queue (e.g., RabbitMQ, Kafka) for event-driven architecture.
+- Implement API versioning.
+- Add more notification providers.
+- Implement automatic scaling.
 
 
 Hello! Thanks for your interest in applying to ZeBrands.
