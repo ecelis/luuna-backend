@@ -149,6 +149,16 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "A simple API for Luuna",
     "VERSION": "0.0.1",
     "SERVE_INCLUDE_SCHEMA": False,
+    "SERVERS": [
+        {
+            "url": "http://localhost:8000/",
+            "description": "Development Server"
+        },
+        {
+            "url": "https://seal-app-6d5qj.ondigitalocean.app/",
+            "description": "Demo Server"
+        },
+    ]
 }
 
 REST_FRAMEWORK = {
