@@ -266,7 +266,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"first_name\": \"John \", \"last_name\": \"Mayer\", \"email\": \"mayer5@shots.com\",\"username\": \"mayer5@shots.com\", \"is_staff\": true, \"password\": \"1qaz0plm\" }",
+							"raw": "{ \"first_name\": \"delete\", \"last_name\": \"Mayer\", \"email\": \"delete@gosoftlive.com\",\"username\": \"delete\", \"is_staff\": true, \"password\": \"1qaz0plm_\" }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -292,7 +292,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"password\": \"1qaz0plm\"}",
+							"raw": "{\"first_name\": \"Ernesto\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -300,12 +300,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}user/5/",
+							"raw": "{{base_url}}user/1/",
 							"host": [
 								"{{base_url}}user"
 							],
 							"path": [
-								"5",
+								"1",
 								""
 							]
 						}
@@ -318,12 +318,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}user/2/",
+							"raw": "{{base_url}}user/4/",
 							"host": [
 								"{{base_url}}user"
 							],
 							"path": [
-								"2",
+								"4",
 								""
 							]
 						}
@@ -346,6 +346,59 @@
 								"{{base_url}}product"
 							],
 							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}product/16/",
+							"host": [
+								"{{base_url}}product"
+							],
+							"path": [
+								"16",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product detail anonymous",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}product/1/",
+							"host": [
+								"{{base_url}}product"
+							],
+							"path": [
+								"1",
 								""
 							],
 							"query": [
@@ -393,7 +446,36 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"sku\": \"006-SKU\", \"name\": \"LP\", \"price\": 12.50, \"brand\": 3 }",
+							"raw": "{ \"sku\": \"00105-SKU\", \"name\": \"CD Player\", \"price\": 12.50, \"brand\": 4 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}product/",
+							"host": [
+								"{{base_url}}product"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add products anonymous",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sku\": \"00102-SKU\", \"name\": \"Donitas\", \"price\": 12.50, \"brand\": 1 }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -419,7 +501,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"Same Trailer DifferentPark\", \"price\": 30.50}",
+							"raw": "{\"name\": \"Same Trailer DifferentPark 33883\", \"price\": 30.50}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -427,12 +509,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}product/18/",
+							"raw": "{{base_url}}product/13/",
 							"host": [
 								"{{base_url}}product"
 							],
 							"path": [
-								"18",
+								"13",
 								""
 							]
 						}
@@ -493,7 +575,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"name\": \"t11\"}",
+							"raw": "{ \"name\": \"Denon\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -647,7 +729,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8000/",
+			"value": "https://seal-app-6d5qj.ondigitalocean.app/",
 			"type": "string"
 		},
 		{
@@ -662,7 +744,7 @@
 		},
 		{
 			"key": "password",
-			"value": "1qaz0plm",
+			"value": "1qaz0plm_",
 			"type": "string"
 		},
 		{
