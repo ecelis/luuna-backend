@@ -17,8 +17,6 @@ In a new terminal window create the first user, run the following command, it wi
 docker compose exec -i sh -c 'python3 manage.py createsuperuser --username admin --email admin@example.com'
 ```
 
-
-
 Browse the API http://localhost:8000
 
 ## Optional Manual Setup Steps
@@ -92,6 +90,14 @@ Update the schema every time the API changes
 ```sh
 cd src/api
 python3 manage.py spectacular --color --file schema.yml
+```
+
+### Generate documentation
+
+It requires nodejs installed!!
+
+```sh
+npx @redocly/cli build-docs src/api/schema.yml --output docs/index.html
 ```
 
 
