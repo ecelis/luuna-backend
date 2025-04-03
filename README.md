@@ -57,6 +57,13 @@ API_SECRET_KEY='really_long_and_random_String'
 DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
 CSFR_TRUSTED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+EMAIL_CHANNEL=sendgrid
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER="ernesto@celisdelafuente.net"
+EMAIL_HOST_PASSWORD="tchr tonm anda blcg"
+EMAIL_USE_TLS=True
+SENDGRID_API_KEY=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
 ```
 
 Run migrations to bootstrap the database
