@@ -92,12 +92,8 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -150,15 +146,12 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "0.0.1",
     "SERVE_INCLUDE_SCHEMA": False,
     "SERVERS": [
-        {
-            "url": "http://localhost:8000/",
-            "description": "Development Server"
-        },
+        {"url": "http://localhost:8000/", "description": "Development Server"},
         {
             "url": "https://seal-app-6d5qj.ondigitalocean.app/",
-            "description": "Demo Server"
+            "description": "Demo Server",
         },
-    ]
+    ],
 }
 
 REST_FRAMEWORK = {
