@@ -184,7 +184,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
 ).split(",")
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 LOGGING = {
     "version": 1,
