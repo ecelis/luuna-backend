@@ -224,8 +224,7 @@ SendGrid Provider:
 - Ensures consistent deployment across different environments.
 - Facilitates scaling and management of the application.
 
-### 5.8. CI/CD Pipeline (GitHub Actions)
-
+### 5.8. CI/CD Pipeline
 - Automates the build, test, and deployment process.
 - Triggers deployments upon successful merges to the main branch.
 - Ensures zero downtime deployments.
