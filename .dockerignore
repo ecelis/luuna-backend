@@ -178,3 +178,4 @@ bak
 bak
 .~*
 .vscode
+src/api/.env
