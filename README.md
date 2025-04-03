@@ -72,7 +72,8 @@ Browse the API http://localhost:8000
 ## Optional Manual Setup Steps
 
 If you can't use docker, you can instead follow the next steps to setup the
-app locally.
+app locally. But in this case you must provide either a PostgreSQL database
+or switch to the `sqlite` branch by running `git checkout sqlite`
 
 
 Create a python virtual environment and activate it
