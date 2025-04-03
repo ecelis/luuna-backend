@@ -3,6 +3,8 @@
 
 There is a demo online at https://seal-app-6d5qj.ondigitalocean.app/docs
 
+There are several users, `admin` is one of them, the password is `1qaz0plm_`
+
 A Postman collection is included in this repo in the `postman` directory. It should work simply by importing it in Postman wit the default 
 variable values.
 
