@@ -13,7 +13,7 @@ variable values.
 3. Try other requests included now that you are authenticated.
 
 There are some request that are labeled anonymous, these only are able to get products, there is one to create a product by anonymous,
-try it, it should bedy the create request.
+try it, it should deny the create request.
 
 ## Development Setup
 
