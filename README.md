@@ -58,10 +58,10 @@ CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 EMAIL_CHANNEL=sendgrid
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_HOST_USER="ernesto@celisdelafuente.net"
-EMAIL_HOST_PASSWORD="tchr tonm anda blcg"
+EMAIL_HOST_USER="constact@example.com"
+EMAIL_HOST_PASSWORD=1q2w3red
 EMAIL_USE_TLS=True
-SENDGRID_API_KEY=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
+SENDGRID_API_KEY=
 ```
 
 Run migrations to bootstrap the database
