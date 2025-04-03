@@ -33,4 +33,7 @@ services:
             - SWAGGER_JSON=/schema.yml
         volumes:
             - ./src/api/schema.yml:/schema.yml:Z 
+        depends_on:
+            - db
+            - api
         

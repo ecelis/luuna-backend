@@ -3,38 +3,14 @@
 
 # Backend Technical Test
 
+
+
 ## Development Setup
 
-## Docker
+Clone the repository `git clone git@github.com:ecelis/luuna-backend.git`.
 
 ```sh
-docker compose up
-```
-
-In a new terminal window create the first user, run the following command, it will ask for a password.
-
-```sh
-docker compose exec -i sh -c 'python3 manage.py createsuperuser --username admin --email admin@example.com'
-```
-
-Browse the API http://localhost:8000
-
-## Optional Manual Setup Steps
-
-If you can't use docker, you can instead follow the next steps to setup the
-app locally.
-
-
-Create a python virtual environment and activate it
-
-```sh
-python3 -mvenv ENV
-source ENV/bin/activate
-```
-
-Install python dependencies
-```sh
-pip install -r src/api/requirements.txt
+cd luuna-backend
 ```
 
 Copy `sample.env` to `src/api/.env`and edit it to suit your environment.
@@ -42,7 +18,12 @@ Copy `sample.env` to `src/api/.env`and edit it to suit your environment.
 ```sh
 cp sample.env src/api/.env 
 ```
-Mainly you will need to change the **POSTGRES** variables.
+With the default values it should simply work in docker.
+
+But if you also want email notifications, you need either SMTP credentialsor a sendgrid 
+API key and fill in the variables.
+
+And set **EMAIL_CHANNEL** to either `smtp` or `sendgrid`.
 
 ```
 API_DEBUG=True
@@ -58,29 +39,61 @@ CORS_ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
 EMAIL_CHANNEL=sendgrid
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_HOST_USER="constact@example.com"
-EMAIL_HOST_PASSWORD=1q2w3red
+EMAIL_HOST_USER="contact@example.com"
+EMAIL_HOST_PASSWORD=very_secret_pwd
 EMAIL_USE_TLS=True
 SENDGRID_API_KEY=
 ```
 
+## Docker
+
+```sh
+docker compose up
+```
+
+In a new terminal window create the first user, run the following command, it will ask for a password.
+
+```sh
+docker compose exec -i api sh -c 'python3 manage.py createsuperuser --username admin --email admin@example.com'
+```
+
+Browse the API http://localhost:8000
+
+## Optional Manual Setup Steps
+
+If you can't use docker, you can instead follow the next steps to setup the
+app locally.
+
+
+Create a python virtual environment and activate it
+
+```sh
+python -m venv ENV
+source ENV/bin/activate
+```
+
+Install python dependencies
+```sh
+pip install -r src/api/requirements.txt
+```
+
+
 Run migrations to bootstrap the database
 
 ```sh
-cd src/api
-python3 manage.py migrate 
+python src/api/manage.py migrate
 ```
 
 Run the app
 
 ```sh
-python3 manage.py runserver
+python src/api/manage.py runserver
 ```
 
 Create the superuser
 
 ```sh
-python3 manage.py createsuperuser --username admin --email admin@example.com
+python src/api/manage.py createsuperuser --username admin --email admin@example.com
 ```
 
 ### OpenAPI Swagger
@@ -88,8 +101,7 @@ python3 manage.py createsuperuser --username admin --email admin@example.com
 Update the schema every time the API changes
 
 ```sh
-cd src/api
-python3 manage.py spectacular --color --file schema.yml
+python src/api/manage.py spectacular --color --file schema.yml
 ```
 
 ### Generate documentation

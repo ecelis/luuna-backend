@@ -922,3 +922,8 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+servers:
+- url: http://localhost:8000/
+  description: Development Server
+- url: https://seal-app-6d5qj.ondigitalocean.app/
+  description: Development Server
